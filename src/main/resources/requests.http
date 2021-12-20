@@ -2,6 +2,15 @@ POST http://localhost:8080/api/auth/register
 Content-Type: application/json
 
 {
-  "username": "Sergey",
+  "email": "Sergey",
+  "password": "123login123"
+}
+
+###
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "Sergey",
   "password": "123login123"
 }
