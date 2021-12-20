@@ -21,7 +21,6 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public LoginDto login(LoginForm loginForm) {
         Optional<User> foundUser = usersRepository.findByEmail(loginForm.getEmail());
-        System.out.println(UtilsService.hashSHA256(loginForm.getPassword()));
         if (foundUser.isPresent()) {
             User user = foundUser.get();
             if (user.getPassword().equals(UtilsService.hashSHA256(loginForm.getPassword()))) {

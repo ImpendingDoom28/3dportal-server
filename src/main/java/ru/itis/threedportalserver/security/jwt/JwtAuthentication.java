@@ -48,7 +48,7 @@ public class JwtAuthentication implements Authentication {
 
     @Override
     public String getName() {
-        return this.;
+        return this.token;
     }
 
     public void setUserDetails(UserDetails userDetails) {

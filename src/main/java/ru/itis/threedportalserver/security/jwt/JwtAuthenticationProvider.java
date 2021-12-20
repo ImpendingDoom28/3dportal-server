@@ -1,6 +1,10 @@
 package ru.itis.threedportalserver.security.jwt;
 
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -8,6 +12,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import ru.itis.threedportalserver.constants.ExceptionStrings;
+import ru.itis.threedportalserver.models.User;
 
 @Component
 public class JwtAuthenticationProvider implements AuthenticationProvider {
@@ -15,21 +21,37 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
     @Value("${jwt.secret}")
     private String secret;
 
+    @Value("${jwt.issuer}")
+    private String issuer;
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        Algorithm algorithm = Algorithm.HMAC256(secret);
         String token = authentication.getName();
 
-        Claims claims;
-        try{
-            claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+        DecodedJWT decodedJWT;
+
+        try {
+            JWTVerifier verifier = JWT.require(algorithm)
+                    .withIssuer(issuer)
+                    .build();
+            decodedJWT = verifier.verify(token);
         } catch (Exception e) {
-            throw new AuthenticationCredentialsNotFoundException("Bad token");
+            authentication.setAuthenticated(false);
+            throw new AuthenticationCredentialsNotFoundException(ExceptionStrings.BAD_TOKEN);
         }
+
+        String email = decodedJWT.getClaim("email").asString();
+        Long id = decodedJWT.getClaim("sub").asLong();
 
         UserDetails userDetails =
                 UserDetailsImpl.builder()
-                        .userId(Long.parseLong(claims.get("sub", String.class)))
-                        .username(claims.get("username", String.class))
+                        .user(
+                                User.builder()
+                                        .email(email)
+                                        .id(id)
+                                        .build()
+                        )
                         .build();
 
         authentication.setAuthenticated(true);
@@ -41,8 +63,6 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
     public boolean supports(Class<?> authentication) {
         return JwtAuthentication.class.equals(authentication);
     }
-
-
 
 
 }

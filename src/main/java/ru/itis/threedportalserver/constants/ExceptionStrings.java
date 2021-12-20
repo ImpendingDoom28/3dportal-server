@@ -10,4 +10,10 @@ public class ExceptionStrings {
     public static String USER_WITH_EMAIL_ALREADY_EXIST(String email) {
         return "User with email '" + email + "' exist!";
     }
+
+    public static String USER_WITH_EMAIL_DOES_NOT_EXIST(String email) {
+        return "User with email '" + email + "' does not exist!";
+    }
+
+    public final static String BAD_TOKEN = "Bad token";
 }

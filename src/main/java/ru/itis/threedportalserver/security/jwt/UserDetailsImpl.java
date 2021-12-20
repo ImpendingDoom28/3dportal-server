@@ -5,6 +5,7 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import ru.itis.threedportalserver.models.User;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -13,12 +14,19 @@ import java.util.Collections;
 @Data
 public class UserDetailsImpl implements UserDetails {
 
-    private Long userId;
-    private String username;
+    private User user;
+
+    public UserDetailsImpl(User user) {
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(username);
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority("user");
         return Collections.singleton(authority);
     }
 
@@ -29,7 +37,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername(){
-        return this.username;
+        return user.getEmail();
     }
 
     @Override

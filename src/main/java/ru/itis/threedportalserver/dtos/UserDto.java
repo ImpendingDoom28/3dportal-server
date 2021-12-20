@@ -13,9 +13,11 @@ import ru.itis.threedportalserver.models.User;
 public class UserDto {
 
     private String email;
+    private Long id;
 
     public static UserDto from(User user) {
         return UserDto.builder()
+                .id(user.getId())
                 .email(user.getEmail())
                 .build();
     }

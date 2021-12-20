@@ -6,6 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.itis.threedportalserver.dtos.LoginDto;
 import ru.itis.threedportalserver.dtos.UserDto;
@@ -13,14 +14,19 @@ import ru.itis.threedportalserver.dtos.UserDto;
 @Service
 public class TokenServiceImpl implements TokenService {
 
-    private final Algorithm algorithm = Algorithm.HMAC256("secret");
-    private final String issuer = "auth0";
+    @Value("${jwt.secret}")
+    private String secret;
+
+    @Value("${jwt.issuer}")
+    private String issuer;
 
     @Override
     public LoginDto generateTokens(UserDto userDto) {
+        Algorithm algorithm = Algorithm.HMAC256(secret);
         try {
             String accessToken = JWT.create()
                     .withIssuer(issuer)
+                    .withSubject(userDto.getId().toString())
                     .withClaim("email", userDto.getEmail())
                     .sign(algorithm);
 
@@ -39,13 +45,14 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public Boolean verifyToken(String token) {
+        Algorithm algorithm = Algorithm.HMAC256(secret);
         try {
             JWTVerifier verifier = JWT.require(algorithm)
                     .withIssuer(issuer)
                     .build();
             DecodedJWT jwt = verifier.verify(token);
             return jwt.getPayload() != null;
-        } catch (JWTVerificationException exception){
+        } catch (JWTVerificationException exception) {
             throw new IllegalArgumentException(exception.getMessage());
         }
 
