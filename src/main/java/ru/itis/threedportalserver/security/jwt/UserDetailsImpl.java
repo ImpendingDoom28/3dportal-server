@@ -5,7 +5,7 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import ru.itis.threedportalserver.models.User;
+import ru.itis.threedportalserver.models.PortalUser;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -14,14 +14,14 @@ import java.util.Collections;
 @Data
 public class UserDetailsImpl implements UserDetails {
 
-    private User user;
+    private PortalUser portalUser;
 
-    public UserDetailsImpl(User user) {
-        this.user = user;
+    public UserDetailsImpl(PortalUser portalUser) {
+        this.portalUser = portalUser;
     }
 
-    public User getUser() {
-        return user;
+    public PortalUser getPortalUser() {
+        return portalUser;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername(){
-        return user.getEmail();
+        return portalUser.getEmail();
     }
 
     @Override

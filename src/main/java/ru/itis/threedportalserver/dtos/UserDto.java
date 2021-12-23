@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.itis.threedportalserver.models.User;
+import ru.itis.threedportalserver.models.PortalUser;
 
 @Data
 @AllArgsConstructor
@@ -15,10 +15,10 @@ public class UserDto {
     private String email;
     private Long id;
 
-    public static UserDto from(User user) {
+    public static UserDto from(PortalUser portalUser) {
         return UserDto.builder()
-                .id(user.getId())
-                .email(user.getEmail())
+                .id(portalUser.getId())
+                .email(portalUser.getEmail())
                 .build();
     }
 }

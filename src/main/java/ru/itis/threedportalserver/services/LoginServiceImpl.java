@@ -6,7 +6,7 @@ import ru.itis.threedportalserver.constants.ExceptionStrings;
 import ru.itis.threedportalserver.dtos.LoginDto;
 import ru.itis.threedportalserver.dtos.UserDto;
 import ru.itis.threedportalserver.forms.LoginForm;
-import ru.itis.threedportalserver.models.User;
+import ru.itis.threedportalserver.models.PortalUser;
 import ru.itis.threedportalserver.repositories.UsersRepository;
 
 import java.util.Optional;
@@ -20,11 +20,11 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public LoginDto login(LoginForm loginForm) {
-        Optional<User> foundUser = usersRepository.findByEmail(loginForm.getEmail());
+        Optional<PortalUser> foundUser = usersRepository.findByEmail(loginForm.getEmail());
         if (foundUser.isPresent()) {
-            User user = foundUser.get();
-            if (user.getPassword().equals(UtilsService.hashSHA256(loginForm.getPassword()))) {
-                return tokenService.generateTokens(UserDto.from(user));
+            PortalUser portalUser = foundUser.get();
+            if (portalUser.getPassword().equals(UtilsService.hashSHA256(loginForm.getPassword()))) {
+                return tokenService.generateTokens(UserDto.from(portalUser));
             }
             throw new IllegalArgumentException(ExceptionStrings.USER_NOT_FOUND);
         }

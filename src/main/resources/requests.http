@@ -17,6 +17,11 @@ Content-Type: application/json
 
 
 ###
+# Authorized request
 GET http://localhost:8080/api/profile/11
 Content-Type: application/json
 Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMSIsImlzcyI6ImF1dGgwIiwiZW1haWwiOiJTZXJnZXkifQ.TordZk2FProm5MtVds96T406HObGXQVmlid52U2l6D0
+###
+# Not - Authorized request
+GET http://localhost:8080/api/profile/11
+Content-Type: application/json

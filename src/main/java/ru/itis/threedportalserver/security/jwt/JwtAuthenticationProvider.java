@@ -13,7 +13,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import ru.itis.threedportalserver.constants.ExceptionStrings;
-import ru.itis.threedportalserver.models.User;
+import ru.itis.threedportalserver.models.PortalUser;
 
 @Component
 public class JwtAuthenticationProvider implements AuthenticationProvider {
@@ -46,8 +46,8 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 
         UserDetails userDetails =
                 UserDetailsImpl.builder()
-                        .user(
-                                User.builder()
+                        .portalUser(
+                                PortalUser.builder()
                                         .email(email)
                                         .id(id)
                                         .build()

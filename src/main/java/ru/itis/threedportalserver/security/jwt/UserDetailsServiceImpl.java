@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import ru.itis.threedportalserver.constants.ExceptionStrings;
-import ru.itis.threedportalserver.models.User;
+import ru.itis.threedportalserver.models.PortalUser;
 import ru.itis.threedportalserver.repositories.UsersRepository;
 
 import java.util.Optional;
@@ -19,10 +19,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<User> foundUser = usersRepository.findByEmail(email);
+        Optional<PortalUser> foundUser = usersRepository.findByEmail(email);
         if(foundUser.isPresent()) {
-            User user = foundUser.get();
-            return new UserDetailsImpl(user);
+            PortalUser portalUser = foundUser.get();
+            return new UserDetailsImpl(portalUser);
         } throw new UsernameNotFoundException(ExceptionStrings.USER_WITH_EMAIL_DOES_NOT_EXIST(email));
     }
 }
