@@ -2,7 +2,7 @@ POST {{HEROKU_URL}}/api/auth/register
 Content-Type: application/json
 
 {
-  "email": "Sergey",
+  "email": "sergey.mikheev@waveaccess.ru",
   "password": "123login123"
 }
 
@@ -11,7 +11,7 @@ POST {{HEROKU_URL}}/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "Sergey",
+  "email": "sergey.mikheev@waveaccess.ru",
   "password": "123login123"
 }
 

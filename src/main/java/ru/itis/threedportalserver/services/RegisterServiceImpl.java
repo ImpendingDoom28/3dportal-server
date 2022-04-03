@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import ru.itis.threedportalserver.constants.ExceptionStrings;
 import ru.itis.threedportalserver.forms.RegisterForm;
 import ru.itis.threedportalserver.models.PortalUser;
+import ru.itis.threedportalserver.models.Profile;
+import ru.itis.threedportalserver.repositories.ProfileRepository;
 import ru.itis.threedportalserver.repositories.UsersRepository;
 
 import java.util.Optional;
@@ -14,6 +16,7 @@ import java.util.Optional;
 public class RegisterServiceImpl implements RegisterService {
 
     private final UsersRepository usersRepository;
+    private final ProfileRepository profileRepository;
 
     @Override
     public boolean registerUser(RegisterForm registerForm) {
@@ -26,6 +29,17 @@ public class RegisterServiceImpl implements RegisterService {
                     .build();
 
             PortalUser successPortalUser = usersRepository.save(newRegisteredPortalUser);
+            Profile profile = Profile.builder()
+                    .id(successPortalUser.getId())
+                    .build();
+            Profile savedProfile = profileRepository.save(profile);
+            System.out.println(savedProfile);
+
+            successPortalUser.setProfile(savedProfile);
+
+            System.out.println(successPortalUser);
+
+            usersRepository.save(successPortalUser);
 
             return successPortalUser.getId() != null;
         }

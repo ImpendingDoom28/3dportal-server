@@ -7,8 +7,11 @@ import ru.itis.threedportalserver.dtos.LoginDto;
 import ru.itis.threedportalserver.dtos.UserDto;
 import ru.itis.threedportalserver.forms.LoginForm;
 import ru.itis.threedportalserver.models.PortalUser;
+import ru.itis.threedportalserver.models.Profile;
+import ru.itis.threedportalserver.repositories.ProfileRepository;
 import ru.itis.threedportalserver.repositories.UsersRepository;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 @Service
@@ -16,6 +19,7 @@ import java.util.Optional;
 public class LoginServiceImpl implements LoginService {
 
     private final UsersRepository usersRepository;
+    private final ProfileRepository profileRepository;
     private final TokenService tokenService;
 
     @Override

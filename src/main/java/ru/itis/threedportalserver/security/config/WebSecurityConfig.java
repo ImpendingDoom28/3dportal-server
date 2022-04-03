@@ -1,6 +1,5 @@
 package ru.itis.threedportalserver.security.config;
 
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
