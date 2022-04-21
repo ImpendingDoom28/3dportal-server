@@ -8,6 +8,7 @@ import ru.itis.threedportalserver.models.PortalUser;
 import ru.itis.threedportalserver.models.Profile;
 import ru.itis.threedportalserver.repositories.ProfileRepository;
 import ru.itis.threedportalserver.repositories.UsersRepository;
+import ru.itis.threedportalserver.services.interfaces.RegisterService;
 
 import java.util.Optional;
 

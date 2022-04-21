@@ -10,7 +10,7 @@ import ru.itis.threedportalserver.dtos.LoginDto;
 import ru.itis.threedportalserver.dtos.MessageDto;
 import ru.itis.threedportalserver.forms.LoginForm;
 import ru.itis.threedportalserver.models.MessageTypes;
-import ru.itis.threedportalserver.services.LoginService;
+import ru.itis.threedportalserver.services.interfaces.LoginService;
 
 @RestController
 @RequiredArgsConstructor

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.itis.threedportalserver.dtos.LoginDto;
 import ru.itis.threedportalserver.dtos.UserDto;
+import ru.itis.threedportalserver.services.interfaces.TokenService;
 
 @Service
 public class TokenServiceImpl implements TokenService {

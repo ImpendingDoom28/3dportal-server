@@ -6,9 +6,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.itis.threedportalserver.dtos.MessageDto;
+import ru.itis.threedportalserver.dtos.ModelFileDto;
 import ru.itis.threedportalserver.models.MessageTypes;
 import ru.itis.threedportalserver.models.ModelFile;
-import ru.itis.threedportalserver.services.ModelsService;
+import ru.itis.threedportalserver.services.interfaces.ModelsService;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,9 +24,13 @@ public class ModelsController {
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> uploadModel(
             @RequestParam("model") MultipartFile file,
-            @RequestParam("givenName") String givenName
+            @RequestParam("userId") Long userId,
+            @RequestParam("givenName") String givenName,
+            @RequestParam("lastModified") String lastModified
     ) {
-        modelsService.saveModel(file, givenName);
+        modelsService.saveModel(
+                file, userId, givenName, lastModified
+        );
         return ResponseEntity.ok(
                 MessageDto.builder()
                         .message("Successfully loaded model")
@@ -35,14 +42,22 @@ public class ModelsController {
 
     @GetMapping(value = "/api/models")
     @CrossOrigin(origins = "*")
-    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> getModels() {
-        ModelFile[] modelFiles = modelsService.getModels();
+        List<ModelFileDto> modelFiles = modelsService.getModels();
         return ResponseEntity.ok(
                 MessageDto.builder()
                         .message("Successfully loaded model")
                         .type(MessageTypes.SUCCESS)
                         .build()
         );
+    }
+
+    @GetMapping(value = "/api/models/{userId}")
+    @CrossOrigin(origins = "*")
+    public ResponseEntity<?> getModelsByUserId(
+            @PathVariable Long userId
+    ) {
+        List<ModelFileDto> modelFiles = modelsService.getModelsByUserId(userId);
+        return ResponseEntity.ok(modelFiles);
     }
 }

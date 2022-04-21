@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "userId")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -17,8 +17,14 @@ public class ModelFile {
     @Column(name = "id", nullable = false)
     private Long id;
     private String givenName;
-    private String uploadedName;
+    private String originalFileName;
     private String generatedName;
+    private String entityTag;
+    private String lastModified;
     private String mimeType;
     private Long uploadDate;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private PortalUser userId;
 }

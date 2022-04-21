@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.itis.threedportalserver.dtos.MessageDto;
 import ru.itis.threedportalserver.forms.RegisterForm;
 import ru.itis.threedportalserver.models.MessageTypes;
-import ru.itis.threedportalserver.services.RegisterService;
+import ru.itis.threedportalserver.services.interfaces.RegisterService;
 
 @RestController
 @RequiredArgsConstructor

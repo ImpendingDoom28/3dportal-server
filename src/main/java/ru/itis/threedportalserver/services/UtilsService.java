@@ -8,6 +8,5 @@ public class UtilsService {
 
     public static String hashSHA256(String stringToHash) {
         return Hashing.sha256().hashString(stringToHash, StandardCharsets.UTF_8).toString();
-
     }
 }

@@ -1,4 +1,4 @@
-package ru.itis.threedportalserver.services;
+package ru.itis.threedportalserver.services.interfaces;
 
 import ru.itis.threedportalserver.dtos.ProfileDto;
 

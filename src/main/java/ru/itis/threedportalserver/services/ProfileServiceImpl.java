@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.itis.threedportalserver.dtos.ProfileDto;
 import ru.itis.threedportalserver.models.Profile;
 import ru.itis.threedportalserver.repositories.ProfileRepository;
+import ru.itis.threedportalserver.services.interfaces.ProfileService;
 
 @Service
 @RequiredArgsConstructor

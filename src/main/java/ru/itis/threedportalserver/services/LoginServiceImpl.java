@@ -7,11 +7,11 @@ import ru.itis.threedportalserver.dtos.LoginDto;
 import ru.itis.threedportalserver.dtos.UserDto;
 import ru.itis.threedportalserver.forms.LoginForm;
 import ru.itis.threedportalserver.models.PortalUser;
-import ru.itis.threedportalserver.models.Profile;
 import ru.itis.threedportalserver.repositories.ProfileRepository;
 import ru.itis.threedportalserver.repositories.UsersRepository;
+import ru.itis.threedportalserver.services.interfaces.LoginService;
+import ru.itis.threedportalserver.services.interfaces.TokenService;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 @Service

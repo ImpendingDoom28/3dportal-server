@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import ru.itis.threedportalserver.dtos.ProfileDto;
-import ru.itis.threedportalserver.services.ProfileService;
+import ru.itis.threedportalserver.services.interfaces.ProfileService;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,12 +15,12 @@ public class ProfileController {
 
     private final ProfileService profileService;
 
-    @GetMapping("/api/profile/{id}")
+    @GetMapping("/api/profile/{userId}")
     @CrossOrigin(origins = "*")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> getProfileByUserId(@PathVariable Long id) {
+    public ResponseEntity<?> getProfileByUserId(@PathVariable Long userId) {
         return ResponseEntity.ok(
-                profileService.getUserProfileById(id)
+                profileService.getUserProfileById(userId)
         );
     }
 
