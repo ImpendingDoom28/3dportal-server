@@ -7,7 +7,7 @@ import ru.itis.threedportalserver.models.PortalUser;
 import java.util.Optional;
 
 @Repository
-public interface UsersRepository extends JpaRepository<PortalUser, Long> {
+public interface PortalUsersRepository extends JpaRepository<PortalUser, Long> {
 
     Optional<PortalUser> findByEmail(String email);
 }

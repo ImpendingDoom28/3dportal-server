@@ -1,11 +1,9 @@
 package ru.itis.threedportalserver.models;
 
 import lombok.*;
-import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Getter
@@ -26,6 +24,10 @@ public class PortalUser {
     @ToString.Exclude
     private Profile profile;
 
+    @Enumerated(EnumType.ORDINAL)
+    private PortalUserRole userRole;
+
     @OneToMany(mappedBy="userId")
+    @ToString.Exclude
     private List<ModelFile> models;
 }

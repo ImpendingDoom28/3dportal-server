@@ -15,7 +15,6 @@ public class IndexController {
 
     @GetMapping
     public String getDocs() {
-        modelsService.getModelsByUserId(2L);
         return "swagger-ui.html";
     }
 }

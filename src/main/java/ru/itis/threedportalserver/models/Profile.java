@@ -6,7 +6,6 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -19,6 +18,7 @@ public class Profile {
     private Long id;
 
     @OneToOne(mappedBy = "profile")
+    @ToString.Exclude
     private PortalUser user;
 
 }

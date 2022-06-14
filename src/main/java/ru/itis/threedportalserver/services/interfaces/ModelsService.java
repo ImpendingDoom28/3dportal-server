@@ -1,5 +1,7 @@
 package ru.itis.threedportalserver.services.interfaces;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 import ru.itis.threedportalserver.dtos.ModelFileDto;
 
@@ -11,9 +13,13 @@ public interface ModelsService {
             MultipartFile file,
             Long userId,
             String givenName,
-            String lastModified
+            String lastModified,
+            String description,
+            String previewImageUrl
     );
 
+    ModelFileDto getModelByGeneratedName(String modelId);
+
     List<ModelFileDto> getModelsByUserId(Long userId);
-    List<ModelFileDto> getModels();
+    Page<ModelFileDto> getModels(Pageable pageable);
 }

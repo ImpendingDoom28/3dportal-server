@@ -1,0 +1,23 @@
+Now start the PostgreSQL service using systemctl:
+
+sudo systemctl start postgresql
+
+Then, use systemctl once more to enable the service to start up whenever the server boots:
+
+sudo systemctl enable postgresql
+
+Get to postgres account on machine:
+
+sudo -i -u postgres
+
+Use Postgres prompt:
+
+psql  ( to quit type: \q )
+
+To quit postgres account:
+
+exit
+
+Copy .jar to VDS:
+
+C:\Program Files\PuTTY> pscp C:\Users\mikhe\IdeaProjects\3dportal-server\target\threedportalserver-0.0.1-SNAPSHOT.jar root@109.70.24.213:/

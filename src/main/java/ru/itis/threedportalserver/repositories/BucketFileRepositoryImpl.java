@@ -77,23 +77,12 @@ public class BucketFileRepositoryImpl implements BucketFileRepository {
 
         ListObjectsResponse res = s3Client.listObjects(listObjects);
 
-        System.out.println(res.toString());
-
-        List<S3Object> objects = res.contents();
-
-        System.out.println(Arrays.toString(objects.toArray()));
-
-        return objects;
+        return res.contents();
     }
 
     @Override
     public List<S3Object> getS3Files() {
         return createListRequest(null);
-    }
-
-    @Override
-    public List<S3Object> getS3FilesByUsername(String username) {
-        return createListRequest(username);
     }
 
     @Override
@@ -123,7 +112,7 @@ public class BucketFileRepositoryImpl implements BucketFileRepository {
     }
 
     @Override
-    public String getPresignedUrlFromModelFile(ModelFile modelFile) {
+    public String getPreSignedUrlFromModelFile(ModelFile modelFile) {
         setUp();
 
         GetObjectRequest getObjectRequest =
@@ -134,6 +123,27 @@ public class BucketFileRepositoryImpl implements BucketFileRepository {
                                         "/" +
                                         modelFile.getGeneratedName()
                         )
+                        .build();
+
+        GetObjectPresignRequest getObjectPresignRequest = GetObjectPresignRequest.builder()
+                .signatureDuration(Duration.ofHours(8))
+                .getObjectRequest(getObjectRequest)
+                .build();
+
+        PresignedGetObjectRequest presignedGetObjectRequest =
+                s3Presigner.presignGetObject(getObjectPresignRequest);
+
+        return presignedGetObjectRequest.url().toString();
+    }
+
+    @Override
+    public String getPreSignedUrlFromS3Object(S3Object s3Object) {
+        setUp();
+
+        GetObjectRequest getObjectRequest =
+                GetObjectRequest.builder()
+                        .bucket(bucketProperties.getName())
+                        .key(s3Object.key())
                         .build();
 
         GetObjectPresignRequest getObjectPresignRequest = GetObjectPresignRequest.builder()

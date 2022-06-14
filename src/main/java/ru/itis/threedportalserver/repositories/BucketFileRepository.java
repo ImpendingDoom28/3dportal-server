@@ -10,8 +10,6 @@ public interface BucketFileRepository {
 
     List<S3Object> getS3Files();
 
-    List<S3Object> getS3FilesByUsername(String username);
-
     /**
      * Method to upload file to bucket
      * @param file
@@ -24,5 +22,6 @@ public interface BucketFileRepository {
             String username
     );
 
-    String getPresignedUrlFromModelFile(ModelFile modelFile);
+    String getPreSignedUrlFromModelFile(ModelFile modelFile);
+    String getPreSignedUrlFromS3Object(S3Object s3Object);
 }

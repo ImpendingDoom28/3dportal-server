@@ -9,7 +9,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.itis.threedportalserver.dtos.LoginDto;
-import ru.itis.threedportalserver.dtos.UserDto;
+import ru.itis.threedportalserver.dtos.PortalUserDto;
 import ru.itis.threedportalserver.services.interfaces.TokenService;
 
 @Service
@@ -22,13 +22,14 @@ public class TokenServiceImpl implements TokenService {
     private String issuer;
 
     @Override
-    public LoginDto generateTokens(UserDto userDto) {
+    public LoginDto generateTokens(PortalUserDto userDto) {
         Algorithm algorithm = Algorithm.HMAC256(secret);
         try {
             String accessToken = JWT.create()
                     .withIssuer(issuer)
                     .withSubject(userDto.getId().toString())
                     .withClaim("email", userDto.getEmail())
+                    .withClaim("role", userDto.getRole().toString())
                     .sign(algorithm);
 
             String refreshToken = JWT.create()
